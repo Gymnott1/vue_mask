@@ -1,5 +1,14 @@
 <script setup>
-import { ref } from 'vue'
+import { useAuth } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const { logout } = useAuth()
+const router = useRouter()
+
+const handleLogout = async () => {
+  await logout()
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -13,6 +22,12 @@ import { ref } from 'vue'
         <RouterLink to="/" class="hover:text-gray-300">Dashboard</RouterLink>
         <RouterLink to="/users" class="hover:text-gray-300">Users</RouterLink>
         <RouterLink to="/settings" class="hover:text-gray-300">Settings</RouterLink>
+        <button
+          @click="handleLogout"
+          class="text-sm bg-red-500 px-3 py-1 rounded"
+        >
+          Logout
+        </button>
       </nav>
     </header>
 
